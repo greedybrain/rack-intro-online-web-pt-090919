@@ -1,12 +1,12 @@
 # Inspecting The Web With Rack
 
-##  Objectives
+## Objectives
 
-1. Explain the mechanics of Rack 
-2. Create a basic web app 
+1. Explain the mechanics of Rack
+2. Create a basic web app
 3. Set up an HTTP web server using a `config.ru` file and the `rackup` command
 
-## Why Rack? 
+## Why Rack?
 
 How does a web server work?
 
@@ -19,8 +19,8 @@ All web servers have a core architecture in common. By looking at it, we can
 build a mental model for how all web servers work. In the same way, we can
 explain how all cars work by:
 
->  Explosions made by gasoline and fire make an inside wheel go round and that
->  inside wheel makes the outside wheels go round"
+> Explosions made by gasoline and fire make an inside wheel go round and that
+> inside wheel makes the outside wheels go round"
 
 In the same way, we can say that all web servers:
 
@@ -45,10 +45,10 @@ a `Proc`.
 
 All this method needs to do is return an `Array` with three elements:
 
-* An [HTTP Status code][http-status] where `200` is used for `OK`
-* A `Hash` with a `"Content-Type"` key that returns the value (for HTML-based
+- An [HTTP Status code][http-status] where `200` is used for `OK`
+- A `Hash` with a `"Content-Type"` key that returns the value (for HTML-based
   documents) of `text/html`
-* Something that responds to `each` which contains the multiple lines of a
+- Something that responds to `each` which contains the multiple lines of a
   document of the `"Content-Type"`'s type (here, `String`s that look like HTML:
   `"<p>Like this!</p>"`. The most common "each-able" thing is an `Array`
 
@@ -71,7 +71,7 @@ html_from_file = File.open("my_html.html").readlines
 
 ## Creating a Rack-Based Web Server
 
-Using this, let's create a basic web app. Follow along with the below instructions. 
+Using this, let's create a basic web app. Follow along with the below instructions.
 
 Let's create a file called `first.ru`. Files that are used by Rack end with
 `.ru` instead of `.rb` because they're normally loaded with a command called
@@ -104,11 +104,11 @@ Rack will print out something like:
 [2019-10-28 12:04:12] INFO  WEBrick::HTTPServer#start: pid=5567 port=9292
 ```
 
->Note: If you're using the Learn IDE, you won't be able to get to your website
->with `localhost`. Instead, you'll see a line that looks something like this -
->`Starting server on 159.203.101.28:30001`. To see the webpage, just go to
->`159.203.101.28:30001` in your web browser. Anywhere these instructions tell
->you to go to `localhost`, replace that with this IP address instead!
+> Note: If you're using the Learn IDE, you won't be able to get to your website
+> with `localhost`. Instead, you'll see a line that looks something like this -
+> `Starting server on 159.203.101.28:30001`. To see the webpage, just go to
+> `159.203.101.28:30001` in your web browser. Anywhere these instructions tell
+> you to go to `localhost`, replace that with this IP address instead!
 
 Let's deconstruct this URL a little bit though. The URL is
 `http://localhost:9292/`. The protocol is `http`. That makes sense, but the
@@ -123,12 +123,12 @@ multiple servers on one computer and having different ports allows them to be
 running simultaneously without conflicting.
 
 The resource that you are requesting is `/`. This is effectively like saying the
-home or default.  If you're doing local development, you should be able to go to
+home or default. If you're doing local development, you should be able to go to
 `http://localhost:9292/` and see _Hello_ printed out by your web server!
 
 Feel free to change `first.ru` to add changes to your web server. If you make
-changes to `first.ru` ***you'll have to shut down the server (Control-C) and
-re-start it to see the changes***.
+changes to `first.ru` **_you'll have to shut down the server (Control-C) and
+re-start it to see the changes_**.
 
 Interestingly, we can swap out the simple `Proc` for a _class_. So long as it
 responds to `#call`, Rack will let us make a substitution.
@@ -167,6 +167,7 @@ We could make things look a bit more like a web server by taking our server
 code out of the `rackup` file and put it into a class file. We could create:
 
 `my_server.rb`
+
 ```ruby
 class MyServer
   def call(env)
@@ -174,7 +175,7 @@ class MyServer
   end
 
   def pretty_response
-    (Time.now.to_i % 2).zero? ?  ["<em>Hello</em>"] : ["<strong>Hello</strong>"]
+    (Time.now.to_i % 2).zero? ?  ["<em style='font-size: 3.5rem'>Hello</em>"] : ["<strong style='font-size: 3.5rem'>Hello</strong>"]
   end
 end
 ```
